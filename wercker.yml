@@ -68,6 +68,7 @@ push-debug:
       cmd: "/pipeline/source/pkg/linux_amd64/hello_strata"
 
 kube-deploy-debug:
+  box: debian:jessie
   steps:
     - script:
       name: generate kube file
