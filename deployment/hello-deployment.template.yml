@@ -8,6 +8,7 @@ metadata:
   namespace: ${TPL_ENVIRONMENT}
 spec:
   replicas: ${TPL_REPLICAS:-3}
+  minReadySeconds: 10
   template:
     metadata:
       labels:
