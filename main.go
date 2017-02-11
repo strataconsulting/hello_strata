@@ -14,7 +14,7 @@ import (
 )
 
 const app = "HelloStrata"
-const version = "1.0.3"
+const version = "1.0.4"
 const port = "9000"
 
 func indexHandler(w http.ResponseWriter, r *http.Request) {
