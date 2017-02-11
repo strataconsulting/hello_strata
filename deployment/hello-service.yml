@@ -24,7 +24,7 @@ metadata:
   namespace: ${TPL_ENVIRONMENT}
 spec:
   rules:
-    - host: hello.${TPL_ENVIRONMENT}.alex.k8s-demo.devops.strataconsulting.com
+    - host: hello.${TPL_ENVIRONMENT}.usw2.alex.k8s-demo.devops.strataconsulting.com
       http:
         paths:
           - path: /
