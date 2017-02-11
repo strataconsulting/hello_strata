@@ -56,6 +56,7 @@ release:
     - tcnksm/gox
 
 push-debug:
+  box: alpine
   steps:
     - internal/docker-push:
       repository: quay.io/strataconsulting/hello_strata
@@ -65,5 +66,4 @@ push-debug:
       tag: debug-$WERCKER_GIT_COMMIT
       ports: "9000"
       working-dir: /pipeline/source
-      cmd: "/hello_strata"
 
