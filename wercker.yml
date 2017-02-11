@@ -29,31 +29,37 @@ build:
         package-dir: github.com/strataconsulting/hello_strata
     - golint
 
-    # Build the project
-    - script:
-        name: go build
-        code: |
-          go build ./...
-
     # Test the project
     - script:
         name: go test
         code: |
           go test ./...
 
+    # Build the project
     - script:
-        name: install mitchellh/gox
+        name: go build
         code: |
-          go get -u -v github.com/mitchellh/gox
+          CGO_ENABLED=0 go build -a -ldflags '-s' -installsuffix cgo -o app .
 
-    - tcnksm/gox:
-        os: "linux darwin"
-        arch: amd64
+    - script:
+        name: copy binary
+        code: cp -r app deployment "$WERCKER_OUTPUT_DIR"
+
+    #- script:
+    #    name: install mitchellh/gox
+    #    code: |
+    #      go get -u -v github.com/mitchellh/gox
+
+    #- tcnksm/gox:
+    #    os: "linux darwin"
+    #    arch: amd64
 
 release:
   box: tcnksm/gox:1.4.2
   steps:
-    - tcnksm/gox
+    - tcnksm/gox:
+        os: "linux darwin"
+        arch: amd64
 
 push-debug:
   steps:
@@ -64,11 +70,9 @@ push-debug:
       registry: quay.io
       tag: debug-$WERCKER_GIT_COMMIT
       ports: "9000"
-      working-dir: /pipeline/source
-      cmd: "/pipeline/source/pkg/linux_amd64/hello_strata"
+      cmd: "./app"
 
 kube-deploy-debug:
-  box: debian:jessie
   steps:
     - script:
       name: generate kube file
