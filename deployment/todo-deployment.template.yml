@@ -1,0 +1,22 @@
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: todo
+  labels:
+    name: todo
+  namespace: ${TPL_ENVIRONMENT}
+spec:
+  replicas: ${TPL_REPLICAS:-3}
+  template:
+    metadata:
+      labels:
+        name: todo
+    spec:
+      containers:
+      - name: todo
+        image: quay.io/strataconsulting/workflows-kubernetes-demo:${TPL_ENVIRONMENT:-release}-${WERCKER_GIT_COMMIT}
+        ports:
+        - name: http-server
+          containerPort: 80
+          protocol: TCP
