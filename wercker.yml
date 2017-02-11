@@ -103,7 +103,7 @@ push-release:
       username: $DOCKER_USERNAME
       password: $DOCKER_PASSWORD
       registry: quay.io
-      tag: release-$WERCKER_GIT_COMMIT
+      tag: master-$WERCKER_GIT_COMMIT
       ports: "9000"
       cmd: "./app"
 
