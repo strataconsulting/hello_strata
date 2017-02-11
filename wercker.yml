@@ -107,7 +107,7 @@ push-release:
       ports: "9000"
       cmd: "./app"
 
-kube-deploy-release:
+kube-deploy-production:
   box: golang
   steps:
     - script:
