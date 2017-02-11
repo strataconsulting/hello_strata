@@ -83,7 +83,7 @@ kube-deploy-debug:
         ./t.sh hello-deployment.template.yml >> hello-kube-debug.yml
         cat hello-kube-debug.yml
     
-    - kubectl:
+    - wercker/step-kubectl:
       cwd: deployment
       server: $KUBERNETES_MASTER
       username: $KUBERNETES_USERNAME
