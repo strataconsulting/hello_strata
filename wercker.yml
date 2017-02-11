@@ -62,9 +62,8 @@ release:
         arch: amd64
 
 push-debug:
-  box: alpine
   steps:
-    - internal/docker-push:
+    - internal/docker-scratch-push:
       repository: quay.io/strataconsulting/hello_strata
       username: $DOCKER_USERNAME
       password: $DOCKER_PASSWORD
