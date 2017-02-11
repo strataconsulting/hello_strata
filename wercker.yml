@@ -27,6 +27,7 @@ build:
     # at the right place in the workspace tree
     - setup-go-workspace:
         package-dir: github.com/strataconsulting/hello_strata
+    - golint
 
     # Build the project
     - script:
@@ -39,3 +40,29 @@ build:
         name: go test
         code: |
           go test ./...
+
+    - script:
+        name: install mitchellh/gox
+        code: |
+          go get -u -v github.com/mitchellh/gox
+
+    - tcnksm/gox:
+        os: "linux darwin"
+        arch: amd64
+
+release:
+  box: tcnksm/gox:1.4.2
+  steps:
+    - tcnksm/gox
+
+push-debug:
+  steps:
+    - internal/docker-push:
+      repository: quay.io/strataconsulting/hello_strata
+      username: $DOCKER_USERNAME
+      password: $DOCKER_PASSWORD
+      registry: quay.io
+      tag: debug-$WERCKER_GIT_COMMIT
+      ports: "9000"
+      cmd: "/hello_strata"
+
