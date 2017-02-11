@@ -126,7 +126,7 @@ kube-deploy-production:
         ./t.sh hello-deployment.template.yml >> hello-kube.yml
         cat hello-kube.yml
 
-    - kubectl:
+    - wercker/kubectl:
       cwd: deployment
       server: $KUBERNETES_MASTER
       username: $KUBERNETES_USERNAME
