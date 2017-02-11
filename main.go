@@ -23,7 +23,7 @@ func indexHandler(w http.ResponseWriter, r *http.Request) {
 		panic(err)
 	}
 
-	fmt.Fprintf(w, "Hello Strata from %s. Version: ", hostname, version)
+	fmt.Fprintf(w, "Hello Strata from %s. Version: %s", hostname, version)
 
 }
 
