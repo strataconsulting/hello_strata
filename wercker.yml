@@ -64,5 +64,6 @@ push-debug:
       registry: quay.io
       tag: debug-$WERCKER_GIT_COMMIT
       ports: "9000"
+      working-dir: /pipeline/source
       cmd: "/hello_strata"
 
