@@ -96,3 +96,38 @@ kube-deploy-debug:
       cwd: deployment
       code: rm -rf ca.pem admin.pem admin-key.pem hello-kube-debug.yml
 
+push-release:
+  steps:
+    - internal/docker-scratch-push:
+      repository: quay.io/strataconsulting/hello_strata
+      username: $DOCKER_USERNAME
+      password: $DOCKER_PASSWORD
+      registry: quay.io
+      tag: release-$WERCKER_GIT_COMMIT
+      ports: "9000"
+      cmd: "./app"
+
+kube-deploy-release:
+  box: golang
+  steps:
+    - script:
+      name: generate kube file
+      cwd: deployment
+      code: |
+        ./t.sh hello-service.yml >> hello-kube.yml
+        ./t.sh hello-deployment.template.yml >> hello-kube.yml
+        cat hello-kube.yml
+
+    - kubectl:
+      cwd: deployment
+      server: $KUBERNETES_MASTER
+      username: $KUBERNETES_USERNAME
+      password: $KUBERNETES_PASSWORD
+      insecure-skip-tls-verify: true
+      command: apply -f hello-kube.yml
+
+    - script:
+      name: cleanup
+      cwd: deployment
+      code: rm -rf ca.pem admin.pem admin-key.pem hello-kube.yml
+
