@@ -1,0 +1,6 @@
+logs
+*.pid
+*.new
+hello_strata
+.wercker
+main
