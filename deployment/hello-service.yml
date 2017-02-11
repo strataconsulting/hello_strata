@@ -1,0 +1,32 @@
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: hello
+  labels:
+    name: hello
+  namespace: ${TPL_ENVIRONMENT}
+spec:
+  ports:
+    - port: 9000
+      targetPort: 9000
+      protocol: TCP
+  selector:
+    name: hello
+
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: hello
+  labels:
+    name: hello
+  namespace: ${TPL_ENVIRONMENT}
+spec:
+  rules:
+    - http:
+        paths:
+          - path: /
+            backend:
+              serviceName: hello
+              servicePort: 9000
