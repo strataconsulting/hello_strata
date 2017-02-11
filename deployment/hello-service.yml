@@ -2,25 +2,25 @@
 kind: Service
 apiVersion: v1
 metadata:
-  name: todo
+  name: hello
   labels:
-    name: todo
+    name: hello
   namespace: ${TPL_ENVIRONMENT}
 spec:
   ports:
-    - port: 8000
-      targetPort: 8000
+    - port: 9000
+      targetPort: 9000
       protocol: TCP
   selector:
-    name: todo
+    name: hello
 
 ---
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  name: todo
+  name: hello
   labels:
-    name: todo
+    name: hello
   namespace: ${TPL_ENVIRONMENT}
 spec:
   rules:
@@ -28,5 +28,5 @@ spec:
         paths:
           - path: /
             backend:
-              serviceName: todo
-              servicePort: 8000
+              serviceName: hello
+              servicePort: 9000

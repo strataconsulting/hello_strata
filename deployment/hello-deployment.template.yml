@@ -2,21 +2,21 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: todo
+  name: hello
   labels:
-    name: todo
+    name: hello
   namespace: ${TPL_ENVIRONMENT}
 spec:
   replicas: ${TPL_REPLICAS:-3}
   template:
     metadata:
       labels:
-        name: todo
+        name: hello
     spec:
       containers:
-      - name: todo
-        image: quay.io/strataconsulting/workflows-kubernetes-demo:${TPL_ENVIRONMENT:-release}-${WERCKER_GIT_COMMIT}
+      - name: hello
+        image: quay.io/strataconsulting/hello_strata:${TPL_ENVIRONMENT:-release}-${WERCKER_GIT_COMMIT}
         ports:
         - name: http-server
-          containerPort: 80
+          containerPort: 9000
           protocol: TCP

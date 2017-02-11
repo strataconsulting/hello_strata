@@ -67,4 +67,26 @@ push-debug:
       working-dir: /pipeline/source
       cmd: "/pipeline/source/pkg/linux_amd64/hello_strata"
 
+kube-deploy-debug:
+  steps:
+    - script:
+      name: generate kube file
+      cwd: deployment
+      code: |
+        ./t.sh hello-service.yml >> hello-kube-debug.yml
+        ./t.sh hello-deployment.template.yml >> hello-kube-debug.yml
+        cat hello-kube-debug.yml
+
+    - kubectl:
+      cwd: deployment
+      server: $KUBERNETES_MASTER
+      username: $KUBERNETES_USERNAME
+      password: $KUBERNETES_PASSWORD
+      insecure-skip-tls-verify: true
+      command: apply -f hello-kube-debug.yml
+
+    - script:
+      name: cleanup
+      cwd: deployment
+      code: rm -rf ca.pem admin.pem admin-key.pem hello-kube-debug.yml
 
