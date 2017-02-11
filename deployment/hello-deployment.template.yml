@@ -25,3 +25,17 @@ spec:
           requests:
             cpu: 100m
             memory: 100Mi
+---
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: hello
+  namespace: ${TPL_ENVIRONMENT}
+spec:
+  scaleTargetRef:
+    apiVersion: extensions/v1beta1
+    kind: Deployment
+    name: hello
+  minReplicas: 1
+  maxReplicas: 26
+  targetCPUUtilizationPercentage: 50

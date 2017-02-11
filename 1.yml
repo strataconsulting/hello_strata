@@ -1,0 +1,15 @@
+---
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: hello
+  namespace: master
+spec:
+  scaleTargetRef:
+    apiVersion: extensions/v1beta1
+    kind: Deployment
+    name: hello
+  minReplicas: 1
+  maxReplicas: 26
+  targetCPUUtilizationPercentage: 80
+
