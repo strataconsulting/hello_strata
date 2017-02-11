@@ -82,6 +82,14 @@ kube-deploy-debug:
         ./t.sh hello-service.yml >> hello-kube-debug.yml
         ./t.sh hello-deployment.template.yml >> hello-kube-debug.yml
         cat hello-kube-debug.yml
+    
+    - kubectl:
+      cwd: deployment
+      server: $KUBERNETES_MASTER
+      username: $KUBERNETES_USERNAME
+      password: $KUBERNETES_PASSWORD
+      insecure-skip-tls-verify: true
+      command: version
 
     - kubectl:
       cwd: deployment
