@@ -91,7 +91,7 @@ kube-deploy-debug:
       insecure-skip-tls-verify: true
       command: version
 
-    - kubectl:
+    - wercker/kubectl:
       cwd: deployment
       server: $KUBERNETES_MASTER
       username: $KUBERNETES_USERNAME
